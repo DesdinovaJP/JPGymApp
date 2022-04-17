@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "GymClassBooking";
+option java_outer_classname = "GymClassBookingImpl";
+
+package GymClassBooking;
+
+// Interface exported by the server.
+service GymClassBooking {
+
+  //client streaming for add user
+  rpc addUser(stream UserDetails) returns (UserDetails) {}
+
+  //book user is unary
+  rpc bookUser(BookingDetails) returns (ResponseMessage) {}
+
+}
+
+message UserDetails {
+  string userName = 1;
+  string gym = 2;
+  string password = 3;
+}
+
+message BookingDetails {
+  string time = 1;
+  string class = 2;
+}
+
+message ResponseMessage {
+  string confirmed = 1;
+}
