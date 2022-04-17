@@ -9,8 +9,9 @@ package GymClassBooking;
 // Interface exported by the server.
 service GymClassBooking {
 
-  //client streaming for add user
-  rpc addUser(stream UserDetails) returns (UserDetails) {}
+  //after a bit of thought decided to change from client streaming to unary because it makes more sense
+  //just a request and a response for the user details
+  rpc addUser(UserDetails) returns (UserDetails) {}
 
   //book user is unary
   rpc bookUser(BookingDetails) returns (ResponseMessage) {}

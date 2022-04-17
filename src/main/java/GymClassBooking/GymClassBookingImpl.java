@@ -42,13 +42,13 @@ public final class GymClassBookingImpl {
       "\">\n\013UserDetails\022\020\n\010userName\030\001 \001(\t\022\013\n\003gym" +
       "\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"-\n\016BookingDetai" +
       "ls\022\014\n\004time\030\001 \001(\t\022\r\n\005class\030\002 \001(\t\"$\n\017Respo" +
-      "nseMessage\022\021\n\tconfirmed\030\001 \001(\t2\255\001\n\017GymCla" +
-      "ssBooking\022I\n\007addUser\022\034.GymClassBooking.U" +
+      "nseMessage\022\021\n\tconfirmed\030\001 \001(\t2\253\001\n\017GymCla" +
+      "ssBooking\022G\n\007addUser\022\034.GymClassBooking.U" +
       "serDetails\032\034.GymClassBooking.UserDetails" +
-      "\"\000(\001\022O\n\010bookUser\022\037.GymClassBooking.Booki" +
-      "ngDetails\032 .GymClassBooking.ResponseMess" +
-      "age\"\000B(\n\017GymClassBookingB\023GymClassBookin" +
-      "gImplP\001b\006proto3"
+      "\"\000\022O\n\010bookUser\022\037.GymClassBooking.Booking" +
+      "Details\032 .GymClassBooking.ResponseMessag" +
+      "e\"\000B(\n\017GymClassBookingB\023GymClassBookingI" +
+      "mplP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

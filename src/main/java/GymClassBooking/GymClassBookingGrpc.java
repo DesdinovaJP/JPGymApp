@@ -37,7 +37,7 @@ public final class GymClassBookingGrpc {
       fullMethodName = SERVICE_NAME + '/' + "addUser",
       requestType = GymClassBooking.UserDetails.class,
       responseType = GymClassBooking.UserDetails.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<GymClassBooking.UserDetails,
       GymClassBooking.UserDetails> getAddUserMethod() {
     io.grpc.MethodDescriptor<GymClassBooking.UserDetails, GymClassBooking.UserDetails> getAddUserMethod;
@@ -46,7 +46,7 @@ public final class GymClassBookingGrpc {
         if ((getAddUserMethod = GymClassBookingGrpc.getAddUserMethod) == null) {
           GymClassBookingGrpc.getAddUserMethod = getAddUserMethod = 
               io.grpc.MethodDescriptor.<GymClassBooking.UserDetails, GymClassBooking.UserDetails>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "GymClassBooking.GymClassBooking", "addUser"))
               .setSampledToLocalTracing(true)
@@ -126,12 +126,13 @@ public final class GymClassBookingGrpc {
 
     /**
      * <pre>
-     *client streaming for add user
+     *after a bit of thought decided to change from client streaming to unary because it makes more sense
+     *just a request and a response for the user details
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<GymClassBooking.UserDetails> addUser(
+    public void addUser(GymClassBooking.UserDetails request,
         io.grpc.stub.StreamObserver<GymClassBooking.UserDetails> responseObserver) {
-      return asyncUnimplementedStreamingCall(getAddUserMethod(), responseObserver);
+      asyncUnimplementedUnaryCall(getAddUserMethod(), responseObserver);
     }
 
     /**
@@ -148,7 +149,7 @@ public final class GymClassBookingGrpc {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getAddUserMethod(),
-            asyncClientStreamingCall(
+            asyncUnaryCall(
               new MethodHandlers<
                 GymClassBooking.UserDetails,
                 GymClassBooking.UserDetails>(
@@ -187,13 +188,14 @@ public final class GymClassBookingGrpc {
 
     /**
      * <pre>
-     *client streaming for add user
+     *after a bit of thought decided to change from client streaming to unary because it makes more sense
+     *just a request and a response for the user details
      * </pre>
      */
-    public io.grpc.stub.StreamObserver<GymClassBooking.UserDetails> addUser(
+    public void addUser(GymClassBooking.UserDetails request,
         io.grpc.stub.StreamObserver<GymClassBooking.UserDetails> responseObserver) {
-      return asyncClientStreamingCall(
-          getChannel().newCall(getAddUserMethod(), getCallOptions()), responseObserver);
+      asyncUnaryCall(
+          getChannel().newCall(getAddUserMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -231,6 +233,17 @@ public final class GymClassBookingGrpc {
 
     /**
      * <pre>
+     *after a bit of thought decided to change from client streaming to unary because it makes more sense
+     *just a request and a response for the user details
+     * </pre>
+     */
+    public GymClassBooking.UserDetails addUser(GymClassBooking.UserDetails request) {
+      return blockingUnaryCall(
+          getChannel(), getAddUserMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
      *book user is unary
      * </pre>
      */
@@ -263,6 +276,18 @@ public final class GymClassBookingGrpc {
 
     /**
      * <pre>
+     *after a bit of thought decided to change from client streaming to unary because it makes more sense
+     *just a request and a response for the user details
+     * </pre>
+     */
+    public com.google.common.util.concurrent.ListenableFuture<GymClassBooking.UserDetails> addUser(
+        GymClassBooking.UserDetails request) {
+      return futureUnaryCall(
+          getChannel().newCall(getAddUserMethod(), getCallOptions()), request);
+    }
+
+    /**
+     * <pre>
      *book user is unary
      * </pre>
      */
@@ -273,8 +298,8 @@ public final class GymClassBookingGrpc {
     }
   }
 
-  private static final int METHODID_BOOK_USER = 0;
-  private static final int METHODID_ADD_USER = 1;
+  private static final int METHODID_ADD_USER = 0;
+  private static final int METHODID_BOOK_USER = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -293,6 +318,10 @@ public final class GymClassBookingGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_ADD_USER:
+          serviceImpl.addUser((GymClassBooking.UserDetails) request,
+              (io.grpc.stub.StreamObserver<GymClassBooking.UserDetails>) responseObserver);
+          break;
         case METHODID_BOOK_USER:
           serviceImpl.bookUser((GymClassBooking.BookingDetails) request,
               (io.grpc.stub.StreamObserver<GymClassBooking.ResponseMessage>) responseObserver);
@@ -307,9 +336,6 @@ public final class GymClassBookingGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_ADD_USER:
-          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.addUser(
-              (io.grpc.stub.StreamObserver<GymClassBooking.UserDetails>) responseObserver);
         default:
           throw new AssertionError();
       }
