@@ -11,7 +11,7 @@ service GymClassBooking {
 
   //after a bit of thought decided to change from client streaming to unary because it makes more sense
   //just a request and a response for the user details
-  rpc addUser(UserDetails) returns (UserDetails) {}
+  rpc addUser(UserDetails) returns (ResponseMessage) {}
 
   //book user is unary
   rpc bookUser(BookingDetails) returns (ResponseMessage) {}

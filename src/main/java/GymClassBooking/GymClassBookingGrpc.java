@@ -31,21 +31,21 @@ public final class GymClassBookingGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<GymClassBooking.UserDetails,
-      GymClassBooking.UserDetails> getAddUserMethod;
+      GymClassBooking.ResponseMessage> getAddUserMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "addUser",
       requestType = GymClassBooking.UserDetails.class,
-      responseType = GymClassBooking.UserDetails.class,
+      responseType = GymClassBooking.ResponseMessage.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<GymClassBooking.UserDetails,
-      GymClassBooking.UserDetails> getAddUserMethod() {
-    io.grpc.MethodDescriptor<GymClassBooking.UserDetails, GymClassBooking.UserDetails> getAddUserMethod;
+      GymClassBooking.ResponseMessage> getAddUserMethod() {
+    io.grpc.MethodDescriptor<GymClassBooking.UserDetails, GymClassBooking.ResponseMessage> getAddUserMethod;
     if ((getAddUserMethod = GymClassBookingGrpc.getAddUserMethod) == null) {
       synchronized (GymClassBookingGrpc.class) {
         if ((getAddUserMethod = GymClassBookingGrpc.getAddUserMethod) == null) {
           GymClassBookingGrpc.getAddUserMethod = getAddUserMethod = 
-              io.grpc.MethodDescriptor.<GymClassBooking.UserDetails, GymClassBooking.UserDetails>newBuilder()
+              io.grpc.MethodDescriptor.<GymClassBooking.UserDetails, GymClassBooking.ResponseMessage>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "GymClassBooking.GymClassBooking", "addUser"))
@@ -53,7 +53,7 @@ public final class GymClassBookingGrpc {
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   GymClassBooking.UserDetails.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  GymClassBooking.UserDetails.getDefaultInstance()))
+                  GymClassBooking.ResponseMessage.getDefaultInstance()))
                   .setSchemaDescriptor(new GymClassBookingMethodDescriptorSupplier("addUser"))
                   .build();
           }
@@ -131,7 +131,7 @@ public final class GymClassBookingGrpc {
      * </pre>
      */
     public void addUser(GymClassBooking.UserDetails request,
-        io.grpc.stub.StreamObserver<GymClassBooking.UserDetails> responseObserver) {
+        io.grpc.stub.StreamObserver<GymClassBooking.ResponseMessage> responseObserver) {
       asyncUnimplementedUnaryCall(getAddUserMethod(), responseObserver);
     }
 
@@ -152,7 +152,7 @@ public final class GymClassBookingGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 GymClassBooking.UserDetails,
-                GymClassBooking.UserDetails>(
+                GymClassBooking.ResponseMessage>(
                   this, METHODID_ADD_USER)))
           .addMethod(
             getBookUserMethod(),
@@ -193,7 +193,7 @@ public final class GymClassBookingGrpc {
      * </pre>
      */
     public void addUser(GymClassBooking.UserDetails request,
-        io.grpc.stub.StreamObserver<GymClassBooking.UserDetails> responseObserver) {
+        io.grpc.stub.StreamObserver<GymClassBooking.ResponseMessage> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getAddUserMethod(), getCallOptions()), request, responseObserver);
     }
@@ -237,7 +237,7 @@ public final class GymClassBookingGrpc {
      *just a request and a response for the user details
      * </pre>
      */
-    public GymClassBooking.UserDetails addUser(GymClassBooking.UserDetails request) {
+    public GymClassBooking.ResponseMessage addUser(GymClassBooking.UserDetails request) {
       return blockingUnaryCall(
           getChannel(), getAddUserMethod(), getCallOptions(), request);
     }
@@ -280,7 +280,7 @@ public final class GymClassBookingGrpc {
      *just a request and a response for the user details
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<GymClassBooking.UserDetails> addUser(
+    public com.google.common.util.concurrent.ListenableFuture<GymClassBooking.ResponseMessage> addUser(
         GymClassBooking.UserDetails request) {
       return futureUnaryCall(
           getChannel().newCall(getAddUserMethod(), getCallOptions()), request);
@@ -320,7 +320,7 @@ public final class GymClassBookingGrpc {
       switch (methodId) {
         case METHODID_ADD_USER:
           serviceImpl.addUser((GymClassBooking.UserDetails) request,
-              (io.grpc.stub.StreamObserver<GymClassBooking.UserDetails>) responseObserver);
+              (io.grpc.stub.StreamObserver<GymClassBooking.ResponseMessage>) responseObserver);
           break;
         case METHODID_BOOK_USER:
           serviceImpl.bookUser((GymClassBooking.BookingDetails) request,
