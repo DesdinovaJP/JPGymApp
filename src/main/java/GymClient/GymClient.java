@@ -25,7 +25,7 @@ public class GymClient
 	
 	public static void main(String[] args) throws InterruptedException 
 	{
-		//service1();
+		service1();
 		
 		try {
 			// Create a JmDNS instance
@@ -40,14 +40,16 @@ public class GymClient
 			System.out.println(e.getMessage());
 			}
 		
-		service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
+		//service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
+		//service2();
 		
 	}
 
 	
 	
-	public static void service1(String host, int port) {
-		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+	public static void service1() {
+		//ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
 		GymClassBookingGrpc.GymClassBookingBlockingStub blockingStub = GymClassBookingGrpc.newBlockingStub(channel);
 
 		//Add user method
