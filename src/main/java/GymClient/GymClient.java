@@ -2,9 +2,10 @@ package GymClient;
 
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
-
 import ChangeTraining.ChangeTrainingGrpc;
+import ChangeTraining.MuscleGroup;
 import ChangeTraining.TrainingRequest;
+import ChangeTraining.TrainingResponse;
 import GymClassBooking.GymClassBookingGrpc;
 import ProgressAssessment.AssessmentDetail;
 import ProgressAssessment.ProgressAssessmentGrpc;
@@ -100,7 +101,7 @@ public class GymClient
 		//add here the bookNextAssessment
 	}
 	
-	public static void service3()
+	public static void service3() throws InterruptedException
 	{
 		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50053).usePlaintext().build();
 		ChangeTrainingGrpc.ChangeTrainingBlockingStub blockingStub = ChangeTrainingGrpc.newBlockingStub(channel);
@@ -115,7 +116,74 @@ public class GymClient
 			System.out.println(individualResponse.getKey() + individualResponse.getValue());	
 		}
 		
-		channel.shutdownNow();	
+			StreamObserver<TrainingResponse> responseObserver = new StreamObserver<TrainingResponse>() {
+			
+	        @Override
+	        public void onNext(TrainingResponse rm) {
+	        	//name of variable.getNameOfVariable
+	            System.out.println(rm.getWorkout() + rm.getReps());
+	        }
+
+	        @Override
+	        public void onCompleted() {
+	        }
+
+			@Override
+			public void onError(Throwable t) {
+				// TODO Auto-generated method stub
+				
+			}
+	    };
+	    
+	    ChangeTrainingGrpc.ChangeTrainingStub stub1 = ChangeTrainingGrpc.newStub(channel);
+	    StreamObserver<MuscleGroup> requestObserver = stub1.createTraining(responseObserver);
+	    
+	    
+	    MuscleGroup rm = MuscleGroup.newBuilder().setMuscletype("Chest ").build();
+	    MuscleGroup rm1 = MuscleGroup.newBuilder().setMuscletype("Back ").build();
+	    MuscleGroup rm2 = MuscleGroup.newBuilder().setMuscletype("Leg ").build();
+	    try {
+			Thread.sleep(1500);
+		} 
+	    catch (InterruptedException e) 
+	    {
+	    	// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    	requestObserver.onNext(rm);
+	    	//requestObserver.onCompleted();
+	    	
+    	 try {
+ 			Thread.sleep(1500);
+ 		} 
+ 	    catch (InterruptedException e) 
+ 	    {
+ 	    	// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 	    	requestObserver.onNext(rm1);
+ 	   
+    	 try {
+			Thread.sleep(1500);
+		} 
+	    catch (InterruptedException e) 
+	    {
+	    	// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    	requestObserver.onNext(rm2);
+	    	
+	    requestObserver.onCompleted();
+	    
+	    //while (true) {
+	    	//try {
+			//	Thread.sleep(2000);
+			//} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+			//	e.printStackTrace();
+			//}
+	    //}
+	    channel.shutdown().awaitTermination(60, TimeUnit.SECONDS);	
 	}
 	
 }

@@ -15,6 +15,7 @@ service ChangeTraining{
   //create training is a bidirectional streaming
   rpc createTraining(stream MuscleGroup) returns (stream TrainingResponse){}
 
+  //TODO
   rpc recordTraining(stream WorkoutDone) returns (RecordedWorkout){}
 
   }
