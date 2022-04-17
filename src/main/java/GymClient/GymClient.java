@@ -1,7 +1,11 @@
 package GymClient;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
+import javax.jmdns.JmDNS;
 import ChangeTraining.ChangeTrainingGrpc;
 import ChangeTraining.MuscleGroup;
 import ChangeTraining.TrainingRequest;
@@ -17,13 +21,33 @@ import io.grpc.stub.StreamObserver;
 public class GymClient 
 {
 
+	
+	
 	public static void main(String[] args) throws InterruptedException 
 	{
-		service3();
+		//service1();
+		
+		try {
+			// Create a JmDNS instance
+			JmDNS jmdns = JmDNS.create(InetAddress. getLocalHost());
+			// Add a service listener
+			jmdns.addServiceListener("_gcbs._tcp.local.", new GymClassBookingServiceDiscovery.SampleListener());
+			// Wait a bit
+			Thread.sleep(5000);
+			} catch (UnknownHostException e) {
+			System.out.println(e.getMessage());
+			} catch (IOException e) {
+			System.out.println(e.getMessage());
+			}
+		
+		service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
+		
 	}
+
 	
-	public static void service1() {
-		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
+	
+	public static void service1(String host, int port) {
+		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 		GymClassBookingGrpc.GymClassBookingBlockingStub blockingStub = GymClassBookingGrpc.newBlockingStub(channel);
 
 		//Add user method

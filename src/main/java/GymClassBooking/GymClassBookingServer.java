@@ -1,6 +1,11 @@
 package GymClassBooking;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.util.concurrent.TimeUnit;
+
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
 
 import GymClassBooking.GymClassBookingGrpc.GymClassBookingImplBase;
 import io.grpc.Server;
@@ -19,9 +24,15 @@ public class GymClassBookingServer extends GymClassBookingImplBase
 				.build()
 				.start();
 
-		System.out.println("Gym class, ready to roll " + port);
-
+		System.out.println("Gym class, ready to roll on " + port);
+		
+		JmDNS jmdns = JmDNS.create(InetAddress. getLocalHost());
+		ServiceInfo serviceInfo = ServiceInfo.create("_gcbs._tcp.local", "GymClassBooking", port, "GymClassBooking");
+		
+		jmdns.registerService(serviceInfo);
+		
 		server.awaitTermination();
+		
 	}
 
 	@Override
