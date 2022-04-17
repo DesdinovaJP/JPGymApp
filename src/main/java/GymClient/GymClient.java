@@ -1,7 +1,10 @@
 package GymClient;
 
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
+import ChangeTraining.ChangeTrainingGrpc;
+import ChangeTraining.TrainingRequest;
 import GymClassBooking.GymClassBookingGrpc;
 import ProgressAssessment.AssessmentDetail;
 import ProgressAssessment.ProgressAssessmentGrpc;
@@ -15,7 +18,7 @@ public class GymClient
 
 	public static void main(String[] args) throws InterruptedException 
 	{
-		service2();
+		service3();
 	}
 	
 	public static void service1() {
@@ -93,6 +96,26 @@ public class GymClient
 		
 		// Clean up : Shutdown the channel
 		channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+		
+		//add here the bookNextAssessment
 	}
-
+	
+	public static void service3()
+	{
+		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50053).usePlaintext().build();
+		ChangeTrainingGrpc.ChangeTrainingBlockingStub blockingStub = ChangeTrainingGrpc.newBlockingStub(channel);
+		
+		TrainingRequest request = TrainingRequest.newBuilder().setUsername("Banjo").build();
+		
+		//specify because it is more than one message
+		Iterator<ChangeTraining.ResponseMessage> responses = blockingStub.newTraining(request);
+		while(responses.hasNext()) 
+		{
+			ChangeTraining.ResponseMessage individualResponse = responses.next();
+			System.out.println(individualResponse.getKey() + individualResponse.getValue());	
+		}
+		
+		channel.shutdownNow();	
+	}
+	
 }

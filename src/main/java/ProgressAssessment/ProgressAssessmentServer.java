@@ -77,5 +77,7 @@ public class ProgressAssessmentServer extends ProgressAssessmentImplBase
 
 	}
 	
+	//add here the unary bookNextAssessment
+	
 
 }

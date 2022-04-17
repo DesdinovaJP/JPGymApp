@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "ChangeTraining";
+option java_outer_classname = "ChangeTrainingImpl";
+
+package ChangeTraining;
+
+// Interface exported by the server.
+service ChangeTraining{
+
+  //new training here is server streaming
+  rpc newTraining(TrainingRequest) returns (stream ResponseMessage) {}
+
+  //create training is a bidirectional streaming
+  rpc createTraining(stream MuscleGroup) returns (stream TrainingResponse){}
+
+  rpc recordTraining(stream WorkoutDone) returns (RecordedWorkout){}
+
+  }
+
+message TrainingRequest {
+  string username = 1;
+}
+
+message ResponseMessage {
+  string key = 1;
+  string value = 2;
+}
+
+message MuscleGroup{
+  string muscletype = 1;
+  }
+
+message TrainingResponse{
+  	string workout =1;
+  	int32 reps = 2;
+  }
+
+message WorkoutDone{
+	string done = 1;
+	int32 weight = 2;
+}
+
+message RecordedWorkout
+{
+	string confirmed = 1;
+}
