@@ -69,15 +69,13 @@ public class ProgressAssessmentServer extends ProgressAssessmentImplBase
 
 		System.out.println(request.getUsername());
 		//preparing the response message
-		ResponseMessage reply = ResponseMessage.newBuilder().setConfirmed(request.getUsername() + " next assesment is on the morning").build();
+		ResponseMessage reply = ResponseMessage.newBuilder().setConfirmed(request.getUsername() + ", your next assesment is in 40 days").build();
 
 		responseObserver.onNext( reply ); 
 
 		responseObserver.onCompleted();
 
 	}
-	
-	//add here the unary bookNextAssessment
 	
 
 }

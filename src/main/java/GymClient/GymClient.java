@@ -25,7 +25,7 @@ public class GymClient
 	
 	public static void main(String[] args) throws InterruptedException 
 	{
-		service1();
+		//service1();
 		
 		try {
 			// Create a JmDNS instance
@@ -41,7 +41,7 @@ public class GymClient
 			}
 		
 		//service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
-		//service2();
+		service2();
 		
 	}
 
@@ -124,7 +124,20 @@ public class GymClient
 		// Clean up : Shutdown the channel
 		channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
 		
-		//add here the bookNextAssessment
+		//bookNextAssessment
+		ManagedChannel channel2 = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
+		ProgressAssessmentGrpc.ProgressAssessmentBlockingStub blockingStub = ProgressAssessmentGrpc.newBlockingStub(channel2);
+
+		//preparing message to send
+		ProgressAssessment.BookRequest request = ProgressAssessment.BookRequest.newBuilder().setUsername("Finn").build();
+
+		//retrieving reply from service
+		ProgressAssessment.ResponseMessage response = blockingStub.bookNextAssessment(request);
+	
+		System.out.println(response.getConfirmed());
+		
+		channel2.shutdownNow();
+		
 	}
 	
 	public static void service3() throws InterruptedException
