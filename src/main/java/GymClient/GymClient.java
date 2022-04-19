@@ -25,7 +25,6 @@ public class GymClient
 	
 	public static void main(String[] args) throws InterruptedException 
 	{
-		//service1();
 		
 		try {
 			// Create a JmDNS instance
@@ -47,7 +46,7 @@ public class GymClient
 
 	
 	
-	public static void service1() {
+	public static void service1(String host, int port) {
 		//ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
 		GymClassBookingGrpc.GymClassBookingBlockingStub blockingStub = GymClassBookingGrpc.newBlockingStub(channel);
@@ -56,7 +55,7 @@ public class GymClient
 		//preparing message to send
 		GymClassBooking.UserDetails request = GymClassBooking.UserDetails.newBuilder().setUserName("jp").setPassword("123").setGym("CHQ").build();
 
-		//retreving reply from service
+		//retrieving reply from service
 		GymClassBooking.ResponseMessage response = blockingStub.addUser(request);
 	
 		System.out.println(response.getConfirmed());
@@ -66,7 +65,7 @@ public class GymClient
 		//preparing message to send
 		GymClassBooking.BookingDetails requestBook = GymClassBooking.BookingDetails.newBuilder().setTime("morning").setClass_("spinning").build();//use Class_ reserved word
 
-		//retreving reply from service
+		//retrieving reply from service
 		GymClassBooking.ResponseMessage responseBook = blockingStub.bookUser(requestBook);
 	
 		System.out.println(responseBook.getConfirmed());

@@ -40,7 +40,7 @@ public class GymClientGUI
 			System.out.println(e.getMessage());
 			}
 		
-		service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
+		//service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
 		
 	}
 

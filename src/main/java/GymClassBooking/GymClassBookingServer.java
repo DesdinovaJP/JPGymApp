@@ -2,8 +2,6 @@ package GymClassBooking;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.concurrent.TimeUnit;
-
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 

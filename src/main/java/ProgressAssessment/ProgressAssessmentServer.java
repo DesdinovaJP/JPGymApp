@@ -56,7 +56,7 @@ public class ProgressAssessmentServer extends ProgressAssessmentImplBase
 				// Now build up our response
 				ResponseMessage.Builder responseBuilder = ResponseMessage.newBuilder();
 				
-				responseBuilder.setConfirmed("Server says it has got your completed message, thanks");
+				responseBuilder.setConfirmed("Just a moment, we are scheduling your assessment...");
 				
 				responseObserver.onNext(responseBuilder.build());
 				responseObserver.onCompleted();
