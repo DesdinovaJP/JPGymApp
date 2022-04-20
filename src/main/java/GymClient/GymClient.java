@@ -40,8 +40,8 @@ public class GymClient
 			}
 		
 		//service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
-		service2();
-		
+		//service2();
+		service3();
 	}
 
 	
@@ -86,7 +86,7 @@ public class GymClient
 			@Override
 			public void onNext(ResponseMessage value) 
 			{
-				System.out.println("Final Response from the Server: " + value.getConfirmed());
+				System.out.println("Server says: " + value.getConfirmed());
 				
 			}
 
