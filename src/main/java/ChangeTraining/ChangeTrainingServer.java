@@ -140,7 +140,42 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 			
 		}
 		
-		
+		// for client-side streaming rpc, we need to create our own StreamObserver and use it.
+		// as we are server we are going to get a stream of messages coming in from client
+		// WE need to implement a StreamObserver and pass it back to gRPC library
+		public StreamObserver<WorkoutDone> recordTraining(StreamObserver<RecordedWorkout> responseObserver)
+		{
+			return new StreamObserver<WorkoutDone>() 
+			{
+
+				@Override
+				public void onNext(WorkoutDone value) 
+				{
+					System.out.println("On Server; message received from client: " + value.getDone());
+					System.out.println("On Server; message received from client: " + value.getWeight());
+					
+				}
+
+				@Override
+				public void onError(Throwable t) 
+				{
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onCompleted() 
+				{
+					// Now build up our response
+					RecordedWorkout.Builder responseBuilder = RecordedWorkout.newBuilder();
+					
+					responseBuilder.setConfirmed("Well done...");
+					
+					responseObserver.onNext(responseBuilder.build());
+					responseObserver.onCompleted();
+					
+				}};
+		}
 
 }
 

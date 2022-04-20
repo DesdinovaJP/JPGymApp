@@ -8,8 +8,10 @@ import java.util.concurrent.TimeUnit;
 import javax.jmdns.JmDNS;
 import ChangeTraining.ChangeTrainingGrpc;
 import ChangeTraining.MuscleGroup;
+import ChangeTraining.RecordedWorkout;
 import ChangeTraining.TrainingRequest;
 import ChangeTraining.TrainingResponse;
+import ChangeTraining.WorkoutDone;
 import GymClassBooking.GymClassBookingGrpc;
 import ProgressAssessment.AssessmentDetail;
 import ProgressAssessment.ProgressAssessmentGrpc;
@@ -42,8 +44,8 @@ public class GymClient
 			}
 		
 		//service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
-		service2();
-		//service3();
+		//service2();
+		service3();
 	}
 
 	
@@ -143,6 +145,7 @@ public class GymClient
 	
 	public static void service3() throws InterruptedException
 	{
+		//new training
 		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50053).usePlaintext().build();
 		ChangeTrainingGrpc.ChangeTrainingBlockingStub blockingStub = ChangeTrainingGrpc.newBlockingStub(channel);
 		
@@ -175,6 +178,7 @@ public class GymClient
 			}
 	    };
 	    
+	    //create training
 	    ChangeTrainingGrpc.ChangeTrainingStub stub1 = ChangeTrainingGrpc.newStub(channel);
 	    StreamObserver<MuscleGroup> requestObserver = stub1.createTraining(responseObserver);
 	    
@@ -223,7 +227,50 @@ public class GymClient
 			//	e.printStackTrace();
 			//}
 	    //}
-	    channel.shutdown().awaitTermination(60, TimeUnit.SECONDS);	
+	    
+	    //recorded work out
+	    StreamObserver<RecordedWorkout> responseObserver2 = new StreamObserver<RecordedWorkout>() 
+		{
+
+			@Override
+			public void onNext(RecordedWorkout value) 
+			{
+				System.out.println("Server says: " + value.getConfirmed());
+				
+			}
+
+			@Override
+			public void onError(Throwable t) 
+			{
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onCompleted() 
+			{
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+			// gRPC library returns a StreamObserver to us: requestObserver
+			// we use this to send out outgoing messages
+			StreamObserver<WorkoutDone> requestObserver2 = stub1.recordTraining(responseObserver2);
+			
+			requestObserver2.onNext(WorkoutDone.newBuilder().setDone("Squats").setWeight(120).build());
+			requestObserver2.onNext(WorkoutDone.newBuilder().setDone("Leg Extension").setWeight(60).build());
+			requestObserver2.onNext(WorkoutDone.newBuilder().setDone("Lunges").setWeight(15).build());
+		
+			System.out.println("Client has now sent its messages.");
+			
+			
+			requestObserver2.onCompleted();
+			
+			Thread.sleep(5000);
+			channel.shutdown().awaitTermination(60, TimeUnit.SECONDS);
+	    
+	    
 	}
 	
 }
