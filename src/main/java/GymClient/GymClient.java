@@ -31,6 +31,8 @@ public class GymClient
 			JmDNS jmdns = JmDNS.create(InetAddress. getLocalHost());
 			// Add a service listener
 			jmdns.addServiceListener("_gcbs._tcp.local.", new GymClassBookingServiceDiscovery.SampleListener());
+			jmdns.addServiceListener("_gcbs._tcp.local.", new ProgressAssessmentServiceDiscovery.SampleListener());
+			jmdns.addServiceListener("_gcbs._tcp.local.", new ChangeTrainingServiceDiscovery.SampleListener());
 			// Wait a bit
 			Thread.sleep(5000);
 			} catch (UnknownHostException e) {
@@ -40,8 +42,8 @@ public class GymClient
 			}
 		
 		//service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
-		//service2();
-		service3();
+		service2();
+		//service3();
 	}
 
 	

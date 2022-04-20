@@ -1,6 +1,10 @@
 package ProgressAssessment;
 
 import java.io.IOException;
+import java.net.InetAddress;
+
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
 
 import ProgressAssessment.ProgressAssessmentGrpc.ProgressAssessmentImplBase;
 import io.grpc.Server;
@@ -22,6 +26,11 @@ public class ProgressAssessmentServer extends ProgressAssessmentImplBase
 				.start();
 
 		System.out.println("Progress assessment is on " + port);
+		
+		JmDNS jmdns = JmDNS.create(InetAddress. getLocalHost());
+		ServiceInfo serviceInfo = ServiceInfo.create("_gcbs._tcp.local", "ProgressAssessment", port, "ProgressAssessment");
+		
+		jmdns.registerService(serviceInfo);
 
 		server.awaitTermination();
 	}

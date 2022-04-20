@@ -178,7 +178,7 @@ public final class ChangeTrainingGrpc {
 
     /**
      * <pre>
-     *TODO
+     *recordTraining is client streaming
      * </pre>
      */
     public io.grpc.stub.StreamObserver<ChangeTraining.WorkoutDone> recordTraining(
@@ -258,7 +258,7 @@ public final class ChangeTrainingGrpc {
 
     /**
      * <pre>
-     *TODO
+     *recordTraining is client streaming
      * </pre>
      */
     public io.grpc.stub.StreamObserver<ChangeTraining.WorkoutDone> recordTraining(

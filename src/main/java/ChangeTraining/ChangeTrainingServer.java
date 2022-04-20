@@ -1,10 +1,10 @@
 package ChangeTraining;
 
 import java.io.IOException;
-
+import java.net.InetAddress;
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
 import ChangeTraining.ChangeTrainingGrpc.ChangeTrainingImplBase;
-import ProgressAssessment.AssessmentDetail;
-import ProgressAssessment.ResponseMessage;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
@@ -24,6 +24,11 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 				.start();
 
 		System.out.println("Let's see those gains " + port);
+		JmDNS jmdns = JmDNS.create(InetAddress. getLocalHost());
+		ServiceInfo serviceInfo = ServiceInfo.create("_gcbs._tcp.local", "ChangeTraining", port, "ChangeTraining");
+		
+		jmdns.registerService(serviceInfo);
+		
 
 		server.awaitTermination();
 	}
@@ -43,7 +48,6 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 			// first message
 			responseBuilder.setKey("The muscle group: chest ").setValue("12 reps");			
 			responseObserver.onNext(responseBuilder.build());
-			
 			
 			// second message
 			responseBuilder.setKey("The muscle group: Back ").setValue("15 reps");	
@@ -136,46 +140,7 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 			
 		}
 		
-		// for client-side streaming rpc, we need to create our own StreamObserver and use it.
-		// as we are server we are going to get a stream of messages coming in from client
-		// WE need to implement a StreamObserver and pass it back to gRPC library
-		public StreamObserver<WorkoutDone> recordTraining(StreamObserver<RecordedWorkout> responseObserver)
-		{
-			
-			System.out.println("On Server; inside the client-side streaming method.");
-			return new StreamObserver<WorkoutDone>() 
-			{
-
-				@Override
-				public void onNext(WorkoutDone value) 
-				{
-					System.out.println("On Server; muscle exercise: " + value.getDone());
-					System.out.println("On Server; weight: " + value.getWeight());
-					
-				}
-
-				@Override
-				public void onError(Throwable t) 
-				{
-					// TODO Auto-generated method stub
-					
-				}
-
-				@Override
-				public void onCompleted() 
-				{
-					// Now build up our response
-					RecordedWorkout.Builder responseBuilder = RecordedWorkout.newBuilder();
-					
-					responseBuilder.setConfirmed("Well done!");
-					
-					responseObserver.onNext(responseBuilder.build());
-					responseObserver.onCompleted();
-					
-				}
-				
-			};
-		}
+		
 
 }
 

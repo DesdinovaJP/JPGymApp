@@ -537,6 +537,5 @@ private static final long serialVersionUID = 0L;
     return DEFAULT_INSTANCE;
   }
 
-
 }
 
