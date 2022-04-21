@@ -13,14 +13,10 @@ public class ChangeTrainingServiceDiscovery
 		return host;
 	}
 
-
-
 	public static int getPort() 
 	{
 		return port;
 	}
-
-
 
 	static class SampleListener implements ServiceListener
 	{
@@ -28,7 +24,7 @@ public class ChangeTrainingServiceDiscovery
 		@Override
 		public void serviceAdded(ServiceEvent event) 
 		{
-			System.out.println("Service added: " + event.getInfo());
+			System.out.println("Change training added: " + event.getInfo());
 			
 		}
 

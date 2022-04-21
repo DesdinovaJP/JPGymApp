@@ -62,7 +62,7 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 	
 		}
 
-		
+		//method createTraining, bidirectional
 		@Override
 		public StreamObserver<MuscleGroup> createTraining(StreamObserver<TrainingResponse> responseObserver) 
 		{
@@ -75,7 +75,7 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 		        {
 			            count++;
 			            System.out.println(rq.getMuscletype());
-			        if(rq.getMuscletype().equalsIgnoreCase("Chest"))//add leg back exercises 
+			        if(rq.getMuscletype().equalsIgnoreCase("Chest"))
 			        {
 			            TrainingResponse rm = TrainingResponse.newBuilder().setWorkout("BenchPress ").setReps(10).build();
 			            TrainingResponse rm1 = TrainingResponse.newBuilder().setWorkout("Fly ").setReps(12).build();
@@ -83,7 +83,7 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 			            TrainingResponse rm3 = TrainingResponse.newBuilder().setWorkout("Inclined Bench ").setReps(10).build();
 			    	    try 
 			    	    {
-		    				Thread.sleep(1500);
+		    				Thread.sleep(1000);
 		    			} catch (InterruptedException e) 
 			    	    {
 		    				// TODO Auto-generated catch block
@@ -93,7 +93,7 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 		    	    	
 		    	    	try 
 			    	    {
-		    				Thread.sleep(1500);
+		    				Thread.sleep(1000);
 		    			} catch (InterruptedException e) 
 			    	    {
 		    				// TODO Auto-generated catch block
@@ -102,7 +102,7 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 		    	    	responseObserver.onNext(rm1);
 		    	    	try 
 			    	    {
-		    				Thread.sleep(1500);
+		    				Thread.sleep(1000);
 		    			} catch (InterruptedException e) 
 			    	    {
 		    				// TODO Auto-generated catch block
@@ -111,7 +111,7 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 		    	    	responseObserver.onNext(rm2);
 		    	    	try 
 			    	    {
-		    				Thread.sleep(1500);
+		    				Thread.sleep(1000);
 		    			} catch (InterruptedException e) 
 			    	    {
 		    				// TODO Auto-generated catch block
@@ -119,7 +119,97 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 		    			}
 		    	    	responseObserver.onNext(rm3);
 		            
-			        }
+			        } 
+			        else if(rq.getMuscletype().equalsIgnoreCase("Leg"))
+			        {
+			            TrainingResponse rm4 = TrainingResponse.newBuilder().setWorkout("Squat ").setReps(10).build();
+			            TrainingResponse rm5 = TrainingResponse.newBuilder().setWorkout("Leg curl ").setReps(12).build();
+			            TrainingResponse rm6 = TrainingResponse.newBuilder().setWorkout("Calf raises ").setReps(15).build();
+			            TrainingResponse rm7 = TrainingResponse.newBuilder().setWorkout("Leg extension ").setReps(10).build();
+			    	    try 
+			    	    {
+		    				Thread.sleep(1000);
+		    			} catch (InterruptedException e) 
+			    	    {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}
+		    	    	responseObserver.onNext(rm4);
+		    	    	
+		    	    	try 
+			    	    {
+		    				Thread.sleep(1000);
+		    			} catch (InterruptedException e) 
+			    	    {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}
+		    	    	responseObserver.onNext(rm5);
+		    	    	try 
+			    	    {
+		    				Thread.sleep(1000);
+		    			} catch (InterruptedException e) 
+			    	    {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}
+		    	    	responseObserver.onNext(rm6);
+		    	    	try 
+			    	    {
+		    				Thread.sleep(1000);
+		    			} catch (InterruptedException e) 
+			    	    {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}
+		    	    	responseObserver.onNext(rm7);
+		            
+			        } 
+			        else if(rq.getMuscletype().equalsIgnoreCase("Back"))
+			        {
+			            TrainingResponse rm8 = TrainingResponse.newBuilder().setWorkout("Low Row ").setReps(10).build();
+			            TrainingResponse rm9 = TrainingResponse.newBuilder().setWorkout("Chin up ").setReps(10).build();
+			            TrainingResponse rm10 = TrainingResponse.newBuilder().setWorkout("Bar row ").setReps(15).build();
+			            TrainingResponse rm11 = TrainingResponse.newBuilder().setWorkout("Back fly ").setReps(10).build();
+			    	    try 
+			    	    {
+		    				Thread.sleep(1000);
+		    			} catch (InterruptedException e) 
+			    	    {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}
+		    	    	responseObserver.onNext(rm8);
+		    	    	
+		    	    	try 
+			    	    {
+		    				Thread.sleep(1000);
+		    			} catch (InterruptedException e) 
+			    	    {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}
+		    	    	responseObserver.onNext(rm9);
+		    	    	try 
+			    	    {
+		    				Thread.sleep(1000);
+		    			} catch (InterruptedException e) 
+			    	    {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}
+		    	    	responseObserver.onNext(rm10);
+		    	    	try 
+			    	    {
+		    				Thread.sleep(1000);
+		    			} catch (InterruptedException e) 
+			    	    {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}
+		    	    	responseObserver.onNext(rm11);
+		            
+			        } 
 		        
 		        }
 

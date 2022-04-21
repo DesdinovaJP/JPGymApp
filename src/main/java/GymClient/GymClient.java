@@ -44,13 +44,14 @@ public class GymClient
 			}
 		
 		//service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
+		//service1();
 		//service2();
 		service3();
 	}
 
 	
 	
-	public static void service1(String host, int port) {
+	public static void service1() {
 		//ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
 		GymClassBookingGrpc.GymClassBookingBlockingStub blockingStub = GymClassBookingGrpc.newBlockingStub(channel);
@@ -80,6 +81,7 @@ public class GymClient
 	
 	public static void service2() throws InterruptedException 
 	{
+		//ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
 		ProgressAssessmentGrpc.ProgressAssessmentStub stub = ProgressAssessmentGrpc.newStub(channel);
 
@@ -117,7 +119,7 @@ public class GymClient
 			requestObserver.onNext(AssessmentDetail.newBuilder().setKey("weight").setValue("89kg").build());
 			requestObserver.onNext(AssessmentDetail.newBuilder().setKey("Username").setValue("AndrewGenius").build());
 		
-			System.out.println("Client has now sent its messages.");
+			System.out.println("User details added.");
 			
 			
 			requestObserver.onCompleted();
@@ -183,11 +185,11 @@ public class GymClient
 	    StreamObserver<MuscleGroup> requestObserver = stub1.createTraining(responseObserver);
 	    
 	    
-	    MuscleGroup rm = MuscleGroup.newBuilder().setMuscletype("Chest ").build();
-	    MuscleGroup rm1 = MuscleGroup.newBuilder().setMuscletype("Back ").build();
-	    MuscleGroup rm2 = MuscleGroup.newBuilder().setMuscletype("Leg ").build();
+	    MuscleGroup rm = MuscleGroup.newBuilder().setMuscletype("Chest").build();
+	    MuscleGroup rm1 = MuscleGroup.newBuilder().setMuscletype("Back").build();
+	    MuscleGroup rm2 = MuscleGroup.newBuilder().setMuscletype("Leg").build();
 	    try {
-			Thread.sleep(1500);
+			Thread.sleep(2000);
 		} 
 	    catch (InterruptedException e) 
 	    {
@@ -198,7 +200,7 @@ public class GymClient
 	    	//requestObserver.onCompleted();
 	    	
     	 try {
- 			Thread.sleep(1500);
+ 			Thread.sleep(2000);
  		} 
  	    catch (InterruptedException e) 
  	    {
@@ -208,7 +210,7 @@ public class GymClient
  	    	requestObserver.onNext(rm1);
  	   
     	 try {
-			Thread.sleep(1500);
+			Thread.sleep(2000);
 		} 
 	    catch (InterruptedException e) 
 	    {
