@@ -6,19 +6,6 @@ import javax.jmdns.ServiceListener;
 public class GymClassBookingServiceDiscovery 
 {
 
-		private static String host;
-		private static int port;
-		
-		public static String getHost() 
-		{
-			return host;
-		}
-
-		public static int getPort() 
-		{
-			return port;
-		}
-
 		static class SampleListener implements ServiceListener
 		{
 
@@ -39,8 +26,7 @@ public class GymClassBookingServiceDiscovery
 			@Override
 			public void serviceResolved(ServiceEvent event) 
 			{
-				host = event.getInfo().getHostAddresses()[0];
-				port = event.getInfo().getPort();
+				GymClient.service1(event.getInfo().getHostAddresses()[0], event.getInfo().getPort());
 				
 			}
 		}

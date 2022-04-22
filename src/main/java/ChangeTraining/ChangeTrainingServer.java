@@ -25,7 +25,7 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 
 		System.out.println("Let's see those gains " + port);
 		JmDNS jmdns = JmDNS.create(InetAddress. getLocalHost());
-		ServiceInfo serviceInfo = ServiceInfo.create("_gcbs._tcp.local", "ChangeTraining", port, "ChangeTraining");
+		ServiceInfo serviceInfo = ServiceInfo.create("_cts._tcp.local", "ChangeTraining", port, "ChangeTraining");
 		
 		jmdns.registerService(serviceInfo);
 		

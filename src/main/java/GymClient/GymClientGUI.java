@@ -36,22 +36,17 @@ public class GymClientGUI implements ActionListener
 
 	
 	
-	public static void main(String[] args) throws InterruptedException 
+	public static void main(String[] args) throws InterruptedException, UnknownHostException, IOException 
 	{
 		
-		try {
 			// Create a JmDNS instance
 			JmDNS jmdns = JmDNS.create(InetAddress. getLocalHost());
 			// Add a service listener
 			jmdns.addServiceListener("_gcbs._tcp.local.", new GymClassBookingServiceDiscovery.SampleListener());
-			// Wait a bit
-			Thread.sleep(5000);
-			} catch (UnknownHostException e) {
-			System.out.println(e.getMessage());
-			} catch (IOException e) {
-			System.out.println(e.getMessage());
-			}
-		
+			jmdns.addServiceListener("_pas._tcp.local.", new ProgressAssessmentServiceDiscovery.SampleListener());
+			jmdns.addServiceListener("_cts._tcp.local.", new ChangeTrainingServiceDiscovery.SampleListener());
+			
+					
 		GymClientGUI gui = new GymClientGUI();
 		gui.build();
 		

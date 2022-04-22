@@ -5,18 +5,6 @@ import javax.jmdns.ServiceListener;
 
 public class ChangeTrainingServiceDiscovery 
 {
-	private static String host;
-	private static int port;
-	
-	public static String getHost() 
-	{
-		return host;
-	}
-
-	public static int getPort() 
-	{
-		return port;
-	}
 
 	static class SampleListener implements ServiceListener
 	{
@@ -38,8 +26,12 @@ public class ChangeTrainingServiceDiscovery
 		@Override
 		public void serviceResolved(ServiceEvent event) 
 		{
-			host = event.getInfo().getHostAddresses()[0];
-			port = event.getInfo().getPort();
+			try {
+				GymClient.service3(event.getInfo().getHostAddresses()[0], event.getInfo().getPort());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 	}

@@ -28,7 +28,7 @@ public class ProgressAssessmentServer extends ProgressAssessmentImplBase
 		System.out.println("Progress assessment is on " + port);
 		
 		JmDNS jmdns = JmDNS.create(InetAddress. getLocalHost());
-		ServiceInfo serviceInfo = ServiceInfo.create("_gcbs._tcp.local", "ProgressAssessment", port, "ProgressAssessment");
+		ServiceInfo serviceInfo = ServiceInfo.create("_pas._tcp.local", "ProgressAssessment", port, "ProgressAssessment");
 		
 		jmdns.registerService(serviceInfo);
 

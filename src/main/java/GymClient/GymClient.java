@@ -25,35 +25,23 @@ public class GymClient
 
 	
 	
-	public static void main(String[] args) throws InterruptedException 
+	public static void main(String[] args) throws InterruptedException, UnknownHostException, IOException 
 	{
 		
-		try {
 			// Create a JmDNS instance
 			JmDNS jmdns = JmDNS.create(InetAddress. getLocalHost());
 			// Add a service listener
 			jmdns.addServiceListener("_gcbs._tcp.local.", new GymClassBookingServiceDiscovery.SampleListener());
-			jmdns.addServiceListener("_gcbs._tcp.local.", new ProgressAssessmentServiceDiscovery.SampleListener());
-			jmdns.addServiceListener("_gcbs._tcp.local.", new ChangeTrainingServiceDiscovery.SampleListener());
-			// Wait a bit
-			Thread.sleep(5000);
-			} catch (UnknownHostException e) {
-			System.out.println(e.getMessage());
-			} catch (IOException e) {
-			System.out.println(e.getMessage());
-			}
-		
-		//service1(GymClassBookingServiceDiscovery.getHost(), GymClassBookingServiceDiscovery.getPort());
-		//service1();
-		//service2();
-		service3();
+			jmdns.addServiceListener("_pas._tcp.local.", new ProgressAssessmentServiceDiscovery.SampleListener());
+			jmdns.addServiceListener("_cts._tcp.local.", new ChangeTrainingServiceDiscovery.SampleListener());
+	
 	}
 
 	
 	
-	public static void service1() {
-		//ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
-		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
+	public static void service1(String host, int port) {
+		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+		//ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
 		GymClassBookingGrpc.GymClassBookingBlockingStub blockingStub = GymClassBookingGrpc.newBlockingStub(channel);
 
 		//Add user method
@@ -79,10 +67,10 @@ public class GymClient
 
 	}
 	
-	public static void service2() throws InterruptedException 
+	public static void service2(String host, int port) throws InterruptedException 
 	{
-		//ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
-		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
+		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+		//ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
 		ProgressAssessmentGrpc.ProgressAssessmentStub stub = ProgressAssessmentGrpc.newStub(channel);
 
 		//Add user detail 
@@ -130,7 +118,8 @@ public class GymClient
 		channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
 		
 		//bookNextAssessment
-		ManagedChannel channel2 = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
+		ManagedChannel channel2 = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+		//ManagedChannel channel2 = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
 		ProgressAssessmentGrpc.ProgressAssessmentBlockingStub blockingStub = ProgressAssessmentGrpc.newBlockingStub(channel2);
 
 		//preparing message to send
@@ -145,10 +134,11 @@ public class GymClient
 		
 	}
 	
-	public static void service3() throws InterruptedException
+	public static void service3(String host, int port) throws InterruptedException
 	{
 		//new training
-		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50053).usePlaintext().build();
+		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+		//ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50053).usePlaintext().build();
 		ChangeTrainingGrpc.ChangeTrainingBlockingStub blockingStub = ChangeTrainingGrpc.newBlockingStub(channel);
 		
 		TrainingRequest request = TrainingRequest.newBuilder().setUsername("Banjo").build();
