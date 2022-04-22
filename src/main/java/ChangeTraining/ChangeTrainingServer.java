@@ -211,7 +211,16 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 		            
 			        } else {
 			        	
-			        	System.out.println("Not a valid entry");
+			        	TrainingResponse rm12 = TrainingResponse.newBuilder().setWorkout("Not a valid entry ").setReps(404).build();
+			        	try 
+			    	    {
+		    				Thread.sleep(1000);
+		    			} catch (InterruptedException e) 
+			    	    {
+		    				// TODO Auto-generated catch block
+		    				e.printStackTrace();
+		    			}
+		    	    	responseObserver.onNext(rm12);
 			        } 
 		        
 		        }

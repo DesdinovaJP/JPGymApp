@@ -22,8 +22,6 @@ import io.grpc.stub.StreamObserver;
 
 public class GymClient 
 {
-
-	
 	
 	public static void main(String[] args) throws InterruptedException, UnknownHostException, IOException 
 	{
@@ -34,10 +32,10 @@ public class GymClient
 			jmdns.addServiceListener("_gcbs._tcp.local.", new GymClassBookingServiceDiscovery.SampleListener());
 			jmdns.addServiceListener("_pas._tcp.local.", new ProgressAssessmentServiceDiscovery.SampleListener());
 			jmdns.addServiceListener("_cts._tcp.local.", new ChangeTrainingServiceDiscovery.SampleListener());
-	
 	}
 	
-	public static void service1(String host, int port) {
+	public static void service1(String host, int port) 
+	{
 		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 		//ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
 		GymClassBookingGrpc.GymClassBookingBlockingStub blockingStub = GymClassBookingGrpc.newBlockingStub(channel);
@@ -157,24 +155,28 @@ public class GymClient
 			System.out.println(individualResponse.getKey() + individualResponse.getValue());	
 		}
 		
-			StreamObserver<TrainingResponse> responseObserver = new StreamObserver<TrainingResponse>() {
+			StreamObserver<TrainingResponse> responseObserver = new StreamObserver<TrainingResponse>() 
+			{
 			
-	        @Override
-	        public void onNext(TrainingResponse rm) {
-	        	//name of variable.getNameOfVariable
-	            System.out.println(rm.getWorkout() + rm.getReps());
-	        }
+		        @Override
+		        public void onNext(TrainingResponse rm) 
+		        {
+		        	//name of variable.getNameOfVariable
+		            System.out.println(rm.getWorkout() + rm.getReps());
+		        }
 
-	        @Override
-	        public void onCompleted() {
-	        }
-
-			@Override
-			public void onError(Throwable t) {
-				// TODO Auto-generated method stub
+		        @Override
+		        public void onCompleted() 
+		        {
+		        }
+	
+				@Override
+				public void onError(Throwable t) 
+				{
+					// TODO Auto-generated method stub
 				
-			}
-	    };
+				}
+			};
 	    
 	    //create training
 	    ChangeTrainingGrpc.ChangeTrainingStub stub1 = ChangeTrainingGrpc.newStub(channel);
@@ -262,14 +264,10 @@ public class GymClient
 			requestObserver2.onNext(WorkoutDone.newBuilder().setDone("Leg Extension").setWeight(60).build());
 			requestObserver2.onNext(WorkoutDone.newBuilder().setDone("Lunges").setWeight(15).build());
 		
-			System.out.println("Client has now sent its messages.");
-			
-			
 			requestObserver2.onCompleted();
 			
 			Thread.sleep(5000);
 			channel.shutdown().awaitTermination(60, TimeUnit.SECONDS);
-	    
 	    
 	}
 	

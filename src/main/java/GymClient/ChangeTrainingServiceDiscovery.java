@@ -5,7 +5,7 @@ import javax.jmdns.ServiceListener;
 
 public class ChangeTrainingServiceDiscovery 
 {
-
+	
 	static class SampleListener implements ServiceListener
 	{
 
