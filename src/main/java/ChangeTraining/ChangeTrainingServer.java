@@ -209,6 +209,9 @@ public class ChangeTrainingServer extends ChangeTrainingImplBase
 		    			}
 		    	    	responseObserver.onNext(rm11);
 		            
+			        } else {
+			        	
+			        	System.out.println("Not a valid entry");
 			        } 
 		        
 		        }

@@ -36,8 +36,6 @@ public class GymClient
 			jmdns.addServiceListener("_cts._tcp.local.", new ChangeTrainingServiceDiscovery.SampleListener());
 	
 	}
-
-	
 	
 	public static void service1(String host, int port) {
 		ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
@@ -64,6 +62,14 @@ public class GymClient
 		System.out.println(responseBook.getConfirmed());
 		
 		channel.shutdownNow();
+		try
+		{
+			channel.awaitTermination(5000,TimeUnit.MICROSECONDS);
+		}
+		catch (InterruptedException ex)
+		{
+			System.err.println("gRPC channel shutdown interrupted");
+		}
 
 	}
 	
@@ -105,7 +111,7 @@ public class GymClient
 			
 			requestObserver.onNext(AssessmentDetail.newBuilder().setKey("Height").setValue("1,7m").build());
 			requestObserver.onNext(AssessmentDetail.newBuilder().setKey("weight").setValue("89kg").build());
-			requestObserver.onNext(AssessmentDetail.newBuilder().setKey("Username").setValue("AndrewGenius").build());
+			requestObserver.onNext(AssessmentDetail.newBuilder().setKey("Username").setValue("RohitGenius").build());
 		
 			System.out.println("User details added.");
 			
@@ -178,6 +184,7 @@ public class GymClient
 	    MuscleGroup rm = MuscleGroup.newBuilder().setMuscletype("Chest").build();
 	    MuscleGroup rm1 = MuscleGroup.newBuilder().setMuscletype("Back").build();
 	    MuscleGroup rm2 = MuscleGroup.newBuilder().setMuscletype("Leg").build();
+	    MuscleGroup rm3 = MuscleGroup.newBuilder().setMuscletype("Coffee").build();
 	    try {
 			Thread.sleep(2000);
 		} 
@@ -209,16 +216,17 @@ public class GymClient
 		}
 	    	requestObserver.onNext(rm2);
 	    	
+    	 try {
+ 			Thread.sleep(2000);
+ 		} 
+ 	    catch (InterruptedException e) 
+ 	    {
+ 	    	// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+ 	    	requestObserver.onNext(rm3);
+	    	
 	    requestObserver.onCompleted();
-	    
-	    //while (true) {
-	    	//try {
-			//	Thread.sleep(2000);
-			//} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-			//	e.printStackTrace();
-			//}
-	    //}
 	    
 	    //recorded work out
 	    StreamObserver<RecordedWorkout> responseObserver2 = new StreamObserver<RecordedWorkout>() 
